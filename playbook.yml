@@ -1,0 +1,22 @@
+- name: install apache2
+  hosts: kings
+  become: true
+  tasks:
+    - name: install apache2
+      apt:
+        name: apache2
+        state: present
+    - name: start apache2
+      service: 
+        name: apache2
+        state: started
+        enabled: true
+    - name: copy index.html
+      copy:
+        src: /etc/ansible/index.html
+        dest: /home/ubuntu/var/www/html/index.html
+        dest: /var/www/html
+    - name: restart apache2
+      service:
+        name: apache2
+        state: restarted
